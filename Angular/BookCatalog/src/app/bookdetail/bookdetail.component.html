@@ -1,0 +1,21 @@
+
+<h3>
+  <a [routerLink]="'home'">Home</a> / 
+  <span *ngIf="id == 0">Add</span><span *ngIf="id != 0">Update</span> 
+  Book
+</h3>
+<form (ngSubmit)="addBook()">
+  <label for="title">Title:</label><br>
+  <input type="text" [(ngModel)]="newBook.title" name="title"><br>
+  <label for="author">Author:</label><br>
+  <input type="text" [(ngModel)]="newBook.author" name="author"><br><br>
+  <button type="submit">
+    <span *ngIf="id == 0">Add</span><span *ngIf="id != 0">Update</span>  
+  </button>
+</form>
+<div [ngClass]="{
+  'success':status === 200,
+  'failure':status === 500}">
+  <p *ngIf="status === 200">Success!</p>
+  <p *ngIf="status === 500">Failed!</p>
+</div>

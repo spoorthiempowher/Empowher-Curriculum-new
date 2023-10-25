@@ -1,0 +1,21 @@
+
+<h2>List of Books</h2>
+<input type="text" [(ngModel)]="searchInput" placeholder="Search books...">
+<button (click)="search()" class="search">Search</button>
+<button [routerLink]="'/book'" class="add">Add Book</button>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of books">
+      <td><a [routerLink]="'/book/' + book.id">{{ book.title }}</a></td>
+      <td>{{ book.author }}</td>
+      <td><button (click)="deleteBook(book.id)" class="delete">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+<br>
