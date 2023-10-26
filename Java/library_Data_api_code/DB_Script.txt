@@ -1,0 +1,118 @@
+DB Name: sfr
+schemas: wiki
+NOTE: Please feel free to amend if you want.
+
+=======================================================
+
+-- Table: wiki.author
+
+-- DROP TABLE IF EXISTS wiki.author;
+
+CREATE TABLE IF NOT EXISTS wiki.author
+(
+    "authorId" integer NOT NULL,
+    "authorName" text COLLATE pg_catalog."default",
+    "authorEmailId" text COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    CONSTRAINT author_pkey PRIMARY KEY ("authorId")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS wiki.author
+    OWNER to postgres;
+	
+=======================================================
+
+-- Table: wiki.book
+
+-- DROP TABLE IF EXISTS wiki.book;
+
+CREATE TABLE IF NOT EXISTS wiki.book
+(
+    "bookId" integer NOT NULL,
+    "bookName" text COLLATE pg_catalog."default",
+    "bookPrice" integer,
+    publisher text COLLATE pg_catalog."default",
+    isbn integer,
+    "stockQuantity" integer,
+    "authorId" integer,
+    "locationId" integer,
+    CONSTRAINT book_pkey PRIMARY KEY ("bookId")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS wiki.book
+    OWNER to postgres;
+
+=======================================================
+
+-- Table: wiki.location
+
+-- DROP TABLE IF EXISTS wiki.location;
+
+CREATE TABLE IF NOT EXISTS wiki.location
+(
+    "locationId" integer NOT NULL,
+    "blockNo" text COLLATE pg_catalog."default",
+    "baySide" text COLLATE pg_catalog."default",
+    "floorNo" text COLLATE pg_catalog."default",
+    "selfNo" text COLLATE pg_catalog."default",
+    CONSTRAINT candidate_pkey PRIMARY KEY ("locationId")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS wiki.location
+    OWNER to postgres;
+
+=======================================================
+
+-- SEQUENCE: wiki.author_seq
+
+-- DROP SEQUENCE IF EXISTS wiki.author_seq;
+
+CREATE SEQUENCE IF NOT EXISTS wiki.author_seq
+    INCREMENT 1
+    START 5001
+    MINVALUE 1
+    MAXVALUE 100000000
+    CACHE 1;
+
+ALTER SEQUENCE wiki.author_seq
+    OWNER TO postgres;
+
+=======================================================
+
+-- SEQUENCE: wiki.book_seq
+
+-- DROP SEQUENCE IF EXISTS wiki.book_seq;
+
+CREATE SEQUENCE IF NOT EXISTS wiki.book_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 100000000
+    CACHE 1;
+
+ALTER SEQUENCE wiki.book_seq
+    OWNER TO postgres;
+	
+=======================================================
+
+-- SEQUENCE: wiki.location_seq
+
+-- DROP SEQUENCE IF EXISTS wiki.location_seq;
+
+CREATE SEQUENCE IF NOT EXISTS wiki.location_seq
+    INCREMENT 1
+    START 9001
+    MINVALUE 1
+    MAXVALUE 100000000
+    CACHE 1;
+
+ALTER SEQUENCE wiki.location_seq
+    OWNER TO postgres;
+	
+=======================================================
