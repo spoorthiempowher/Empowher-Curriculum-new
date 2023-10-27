@@ -1,19 +1,29 @@
 
 <h2>List of Books</h2>
-<input type="text" [(ngModel)]="searchInput" placeholder="Search books...">
-<button (click)="search()" class="search">Search</button>
-<button [routerLink]="'/book'" class="add">Add Book</button>
+<input type="text" [(ngModel)]="searchInput" placeholder="Search books by book title or by author...">
+<button (click)="search()" class="search" *ngIf="showSearch">Search</button>
+<button (click)="reset()" class="search" *ngIf="!showSearch">Reset</button>
+<button [routerLink]="'/books'" class="add">Add Book</button>
 <table>
   <thead>
     <tr>
       <th>Title</th>
       <th>Author</th>
+      <th>Book Price</th>
+      <th>Publisher</th>
+      <th>Stock Quantity</th>
+      <th>Location</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let book of books">
-      <td><a [routerLink]="'/book/' + book.id">{{ book.title }}</a></td>
-      <td>{{ book.author }}</td>
+      <td><a [routerLink]="'/books/' + book.id">{{ book.name }}</a></td>
+      <td>{{ book.author.name }}</td>
+      <td>{{ book.price }}</td>
+      <td>{{ book.publisher }}</td>
+      <td>{{ book.quantity }}</td>
+      <td>{{ book.location.block }}-{{ book.location.bay_side }}-{{ book.location.floor }}-{{ book.location.shelf }}</td>
       <td><button (click)="deleteBook(book.id)" class="delete">Delete</button></td>
     </tr>
   </tbody>

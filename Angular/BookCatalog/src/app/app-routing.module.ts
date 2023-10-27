@@ -5,10 +5,10 @@ import { BookdetailComponent } from './bookdetail/bookdetail.component';
 
 const routes: Routes = [ 
   { path: 'home', component: HomeComponent },
-  {path: 'book', redirectTo: 'book/', pathMatch: 'full'},
-  {path: 'book/:bookId', component: BookdetailComponent},
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home' }
+  {path: 'books', redirectTo: 'books/', pathMatch: 'full'},
+  {path: 'books/:bookId', component: BookdetailComponent},
+  { path: '',   redirectTo: '/home', pathMatch: 'full' }, //default / landing page
+  { path: '**', redirectTo: '/home' } //any unknown path
 ];
 
 @NgModule({

@@ -1,36 +1,52 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { Book } from './model/book';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
 
-  books: any[] = [
-    {id: 1, title: 'One', author: 'Author 1'},
-    {id: 2, title: 'Two', author: 'Author 2'}
-  ];
+  private baseUrl = 'http://localhost:8080';
 
-  constructor() { }
+  private booksUrl = this.baseUrl + '/books'; // Replace this URL with your backend API URL
 
-  getBooks(){
-    return of(this.books);
+  private authorsUrl = this.baseUrl + '/authors';
+
+  private locationsUrl = this.baseUrl + '/locations';
+
+  constructor(private http: HttpClient) { }
+
+  getAllBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(this.booksUrl);
   }
 
-  getBook(id: number){
-    return of(this.books.filter(book => book.id == id)[0]);
+  getBookById(id: number): Observable<Book> {
+    return this.http.get<Book>(`${this.booksUrl}/${id}`);
   }
 
-  addBook(book: any){
-    return of(this.books.push(book));
+  searchBookByName(name: string){
+    return this.http.get<Book[]>(`${this.booksUrl}/search?name=${name}`);
   }
 
-  updateBook(book: any, id: number){
-    let b = this.getBook(id);
-
+  createBook(book: Book): Observable<Book> {
+    return this.http.post<Book>(this.booksUrl, book);
   }
 
-  deleteBook(id: number){
-    return of();
+  updateBook(book: Book): Observable<Book> {
+    return this.http.put<Book>(`${this.booksUrl}/${book.id}`, book);
+  }
+
+  deleteBook(id: number): Observable<any> {
+    return this.http.delete(`${this.booksUrl}/${id}`);
+  }
+
+  getAuthors(): Observable<any>{
+    return this.http.get(`${this.authorsUrl}`);
+  }
+
+  getLocations(): Observable<any>{
+    return this.http.get(`${this.locationsUrl}`);
   }
 }
